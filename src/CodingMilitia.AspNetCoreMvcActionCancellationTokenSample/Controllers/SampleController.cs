@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,7 +49,7 @@ namespace CodingMilitia.AspNetCoreMvcActionCancellationTokenSample.Controllers
                 }
                 _logger.LogInformation("Process completed!");
             }
-            catch (TaskCanceledException)
+            catch (Exception ex) when (ex is TaskCanceledException || ex is OperationCanceledException)
             {
                 _logger.LogInformation("Process canceled!");
                 
